@@ -1,0 +1,10 @@
+numpy==1.19.5
+av==8.0.3
+typing_extensions==3.7.4.3
+aiortc==1.2.0
+opencv_python==4.5.1.48
+cyhunspell==2.0.2
+Keras==2.4.3
+hunspell==0.5.5
+Pillow==8.2.0
+streamlit_webrtc==0.20.1
