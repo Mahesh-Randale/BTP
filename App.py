@@ -12,6 +12,7 @@ import tensorflow as tf
 from keras.models import model_from_json
 import tkinter.ttk
 
+#shows "Loading" window
 class Splash(Toplevel):
     def __init__(self, parent):
        	self.root = Toplevel(parent.root)
@@ -66,6 +67,7 @@ class Splash(Toplevel):
     def destroy(self):
     	self.root.destroy()
 
+#Home screen
 class Application:
 	def __init__(self):
 
@@ -133,7 +135,6 @@ class Application:
 		self.root.destroy()
 
 	def action1(self):
-
 		pba = Sign_to_text(obj)
 
 	def action2(self):
