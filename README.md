@@ -3,9 +3,13 @@ Sign Language Recogntion System
 We have used Convolutional Neural Networks for creating model.
 
 Our proposed solution consists of four main steps:
+
 • Dataset Creation
+
 • Image Pre-processing
+
 • Training CNN Model
+
 • Creating a GUI
 To achieve a 2-way communication between deaf people and normal people,
 we have added following features to the system:
