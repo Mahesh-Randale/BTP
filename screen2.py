@@ -36,9 +36,12 @@ class Speech_to_sign:
 		self.p1 = Label(self.root2 , text = "Speech to\n Sign",font = ("Courier",40),bg = "gray14" , fg = "spring green")
 		self.p1.place(x = 100, y = 60 )
 		
-		self.l1 = Label(self.root2,text = "")
+		self.l1 = Label(self.root2,text = "",font = ("Courier",5))
 		self.l1.place(x=600 , y=650)
 
+		self.letter = Label(self.root2 , text = "" , font = ("Courier",50,"bold"),bg = "gray16" , fg = "pink")
+		self.letter.place(x = 730,y = 550)
+		
 		self.bt_mic = Button(self.root2 ,text = "Speak Here" ,command = self.convert_speech,font = ("Courier",15,"bold"))
 		self.bt_mic.place(x=300, y=600)
 
@@ -46,15 +49,15 @@ class Speech_to_sign:
 		self.bt_enter.place(x=150, y=450)
 
 		self.forward = Button(self.root2 ,text = "--->>" ,font = ("Courier",15,"bold"),command = lambda :self.next(self.curr_index+1))
-		self.forward.place(x=800, y=550)
+		self.forward.place(x=800, y=650)
 
 		self.back = Button(self.root2 ,text = "<<---" ,font = ("Courier",15,"bold"),command = lambda :self.prev(self.curr_index-1))
-		self.back.place(x=600, y=550)
+		self.back.place(x=600, y=650)
 
 		self.bt_reset1 = Button(self.root2 ,text = "Reset" ,font = ("Courier",15,"bold"),command = self.reset1)
 		self.bt_reset1.place(x=100, y=700)
 
-		self.img_panel = Label(self.root2)
+		self.img_panel = Label(self.root2 , bg = "gray11" )
 		self.img_panel.place(x = 500, y = -60, width = 600, height = 600)
 
 
@@ -66,8 +69,10 @@ class Speech_to_sign:
 			final = self.path + string[curr] + ".jpg"
 		img = cv2.imread(final)
 		img = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
+		img = cv2.resize(img , (500 , 500))
 		img = Image.fromarray(img)
 		imgtk1 = ImageTk.PhotoImage(image = img)
+		self.letter['text'] = string[curr].upper()
 		return imgtk1
 
 	def next(self , curr):
@@ -75,6 +80,7 @@ class Speech_to_sign:
 		self.imgtk1 = self.load_image(curr)
 		self.img_panel.imgtk1 = self.imgtk1
 		self.img_panel.configure(image = self.imgtk1 )
+		
 		self.curr_index = self.curr_index+1
 
 	def prev(self,curr):
@@ -82,6 +88,7 @@ class Speech_to_sign:
 		self.imgtk1 = self.load_image(curr)
 		self.img_panel.imgtk1 = self.imgtk1
 		self.img_panel.configure(image = self.imgtk1 )
+		
 		self.curr_index = self.curr_index-1
 
 	def gesture_to_voice(self):
@@ -103,6 +110,7 @@ class Speech_to_sign:
 		self.imgtk1 = self.load_image(0)
 		self.img_panel.imgtk1 = self.imgtk1
 		self.img_panel.configure(image = self.imgtk1 )
+		#self.letter['text'] = self.l1['text'][0]
 
 	def convert_text(self):
 		string = self.e1.get()
@@ -110,6 +118,7 @@ class Speech_to_sign:
 		self.imgtk1 = self.load_image(0)
 		self.img_panel.imgtk1 = self.imgtk1
 		self.img_panel.configure(image = self.imgtk1 )
+		#self.letter['text'] = self.l1['text'][0]
 
 	def reset1(self):
 		self.l1['text'] = ""
@@ -121,6 +130,10 @@ class Speech_to_sign:
 		self.imgtk1 = ImageTk.PhotoImage(image = img)
 		self.img_panel.imgtk1 = self.imgtk1
 		self.img_panel.configure(image = self.imgtk1 )
+		self.letter['text'] = ""
+		self.curr_index = 0
+		self.string = ""
+		self.length = 0
 		self.forward['state'] = "normal"
 
 	def destructor(self):
